@@ -1,0 +1,1414 @@
+<Animi_screen>:
+    MDLabel:
+        text: "Logistic"
+        bold: True
+        italic: True
+        pos_hint : {'center_x': 0.7,'center_y': 0.7}
+        theme_text_color: "Custom"
+        text_color:(99/255,99/255,99/255, 1)
+        font_style: "H3"
+
+    MDLabel:
+        text: "Assist"
+        bold: True
+        italic: True
+        pos_hint : {'center_x': 0.9,'center_y': 0.6}
+        theme_text_color: "Custom"
+        text_color:(99/255,99/255,99/255, 1)
+        font_style: "H3"
+    MDLabel:
+        text: "_An AI enabled mobile application_\nfor intelligent logistics management"
+        pos_hint : {'center_x': 0.6,'center_y': 0.45}
+        theme_text_color: "Custom"
+        text_color:(99/255,99/255,99/255)
+
+    MDFillRoundFlatButton:
+        text: "Get Started"
+        pos_hint : {'center_x': 0.5,'center_y': 0.2}
+        text_color : (0,0,0,1)
+        on_release : root.manager.current = "Service_selection_screen"
+
+    MDFillRoundFlatButton:
+        text: "temp"
+        pos_hint : {'center_x': 0.2,'center_y': 0.05}
+        text_color : (0,0,0,1)
+        on_release : app.login_otp.carrier_dashboard()
+
+
+<Service_selection_screen>:
+    MDLabel:
+        text: "Logistic"
+        bold: True
+        italic: True
+        pos_hint : {'center_x': 0.7,'center_y': 0.85}
+        theme_text_color: "Custom"
+        text_color:(99/255,99/255,99/255)
+        font_style: "H3"
+
+    MDLabel:
+        text: "Assist"
+        bold: True
+        italic: True
+        pos_hint : {'center_x': 0.9,'center_y': 0.75}
+        theme_text_color: "Custom"
+        text_color:(99/255,99/255,99/255)
+        font_style: "H3"
+    MDRectangleFlatIconButton:
+        text : "TRUCKER"
+        text_color : (0,0,0,1)
+        font_style: "H4"
+        icon : "truck-delivery"
+        pos_hint : {'center_x': 0.5,'center_y': 0.5}
+        on_release : root.manager.current = "Carrier_login_screen"
+    MDRectangleFlatIconButton:
+        text : "SHIPPER"
+        text_color : (0,0,0,1)
+        font_style: "H4"
+        icon : "truck-trailer"
+        pos_hint : {'center_x': 0.5,'center_y': 0.3}
+        on_release : root.manager.current = "Company_login_screen"
+
+
+<Company_login_screen>:
+    FloatLayout:
+        MDTextField:
+            id: login_email
+            hint_text:"email"
+            size_hint : .8, .1
+            pos_hint: {"top": .8 ,"right" : .9}
+            icon_right: "email"
+            icon_right_color: app.theme_cls.primary_color
+        MDTextField:
+            id: login_password
+            password: True
+            hint_text:"password"
+            size_hint : .8, .1
+            pos_hint: {"top": .6 ,"right" : .9}
+            icon_right: "lock"
+            icon_right_color: app.theme_cls.primary_color
+
+        MDLabel:
+            id: signin_message
+            color: (1,0,0,1)
+            size_hint: .8, .1
+            pos_hint: {"top": .45 ,"right" : 1.1}
+
+        MDRectangleFlatButton:
+            text: "Sign In!"
+            text_style: "H5"
+            size_hint: .8, .1
+            pos_hint: {"top": .32, "right": .9}
+            on_release:
+                app.login_firebase.sign_in(login_email.text, login_password.text)
+
+        MDFlatButton:
+            text: "Forget Password..."
+            text_color: (0,0,0,1)
+            text_style: "H6"
+            size_hint:.5, .04
+            pos_hint: {"top": .52, "right": .95}
+            on_release: root.manager.current = "ResetPassword"
+
+        MDFlatButton:
+            text : "Create an account ? [b]Sign up...![/b]"
+            text_color : (1,1,0,1)
+            markup: True
+            text_style: "H6"
+            size_hint: .8, .04
+            pos_hint: {"top": .2, "right": .9}
+            on_release : root.manager.current = "Company_signup_screen"
+
+
+        MDIconButton:
+            text : "BACK"
+            icon: "arrow-left"
+            text_color : (1,1,0,1)
+            pos_hint: {"top": .98, "right": .2}
+            on_release : root.manager.current = "Service_selection_screen"
+
+
+<Company_signup_screen>:
+    FloatLayout:
+        MDTextField:
+            id: login_email
+            hint_text:"email"
+            size_hint : .8, .1
+            pos_hint: {"top": .8 ,"right" : .9}
+            icon_right: "email"
+            icon_right_color: app.theme_cls.primary_color
+        MDTextField:
+            id: login_password
+            password: True
+            hint_text:"password"
+            size_hint : .8, .1
+            pos_hint: {"top": .65 ,"right" : .9}
+            icon_right: "lock"
+            icon_right_color: app.theme_cls.primary_color
+        MDTextField:
+            id: confirm_password
+            password: True
+            hint_text:"Re-type password"
+            size_hint : .8, .1
+            pos_hint: {"top": .5 ,"right" : .9}
+            icon_right: "lock"
+            icon_right_color: app.theme_cls.primary_color
+        MDLabel:
+            id: login_message
+            color: (1,0,0,1)
+            size_hint: .8, .1
+            pos_hint: {"top": .4 ,"right" : 1.09}
+        MDRectangleFlatButton:
+            text: "[u]Sign up![/u]"
+            markup: True
+            text_style: "H6"
+            size_hint: .8, .1
+            pos_hint: {"top": .2, "right": .9}
+            on_release:
+                app.login_firebase.sign_up(login_email.text, login_password.text, confirm_password.text)
+
+        MDIconButton:
+            text : "BACK"
+            icon: "arrow-left"
+            text_color : (1,1,0,1)
+            pos_hint: {"top": .98, "right": .2}
+            on_release : root.manager.current = "Company_login_screen"
+
+<ResetPassword>:
+    FloatLayout:
+        MDIconButton:
+            text : "BACK"
+            icon: "arrow-left"
+            text_color : (1,1,0,1)
+            pos_hint: {"top": .98, "right": .2}
+            on_release : root.manager.current = "Company_login_screen"
+        MDLabel:
+            text: "Password Resetting...!"
+            font_size: 18
+            bold: True
+            pos_hint: {"center_x": .5, "center_y": .75}
+            halign: "center"
+            id: text_redefined
+        MDTextField:
+            id: email_confirm
+            hint_text: "Email"
+            pos_hint: {"center_x": .5, "center_y": .6}
+            size_hint_x: .8
+            icon_right: "email"
+            icon_right_color: app.theme_cls.primary_color
+        MDLabel:
+            id: reset_message
+            color: (1,0,0,1)
+            size_hint: .8, .1
+            pos_hint: {"top": .55 ,"right" : 1}
+        MDRaisedButton:
+            text: "Submit"
+            font_size: 17
+            pos_hint: {"center_x": .5, "center_y": .35}
+            on_release:
+                app.login_firebase.reset_password(email_confirm.text)
+
+
+<Company_details>:
+    FloatLayout:
+        MDTextField:
+            id: username
+            hint_text:"Enter your Name"
+            size_hint : .8, .1
+            pos_hint: {"top": .8 ,"right" : .9}
+            icon_right: "account"
+            icon_right_color: app.theme_cls.primary_color
+        MDTextField:
+            id: company_name
+            hint_text:"Company Name"
+            size_hint : .8, .1
+            pos_hint: {"top": .65 ,"right" : .9}
+            icon_right: "office-building"
+            icon_right_color: app.theme_cls.primary_color
+        MDTextField:
+            id: phone_number
+            hint_text:"Phone Number"
+            size_hint : .8, .1
+            pos_hint: {"top": .5 ,"right" : .9}
+            icon_right: "cellphone-basic"
+            icon_right_color: app.theme_cls.primary_color
+        MDLabel:
+            id: details_message
+            color: (1,0,0,1)
+            size_hint: .8, .1
+            pos_hint: {"top": .4 ,"right" : 1.09}
+        MDRectangleFlatButton:
+            text: "Continue"
+            text_style: "H6"
+            size_hint: .8, .1
+            pos_hint: {"top": .2, "right": .9}
+            on_release:
+                app.login_firebase.post_details(username.text, company_name.text, phone_number.text)
+
+
+##################################################################################################################################
+##############################################################################################################################
+###################   Company Dashboard   ####################################################################
+##############################################################################################################################
+##############################################################################################################################
+
+
+<Company_dashboard>:
+    MDToolbar:
+        pos_hint: {"top":1}
+        title: "Current Bidding"
+        elevation:11
+        #left_action_items:[["menu", lambda x: nav_drawer.set_state("open")]]
+
+
+    Nav_bar:
+        size_hint: .85, .1
+        pos_hint: {"center_x": .5, "center_y": .1}
+        elevation: 15
+        md_bg_color: 1,1,1,1
+        radius: [16]
+        MDGridLayout:
+            cols: 3
+            size_hint_x: .8
+            spacing: 20
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+
+            MDIconButton:
+                icon: 'home-outline'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release : app.login_firebase.refresh_dashboard()
+
+            MDIconButton:
+                icon: 'transfer'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release : app.login_firebase.history()
+
+            MDIconButton:
+                icon: 'account-outline'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release: app.login_firebase.profile()
+
+
+    Nav_bar:
+        size_hint: .85, .45
+        pos_hint: {"center_x": .5, "center_y": .64}
+        elevation: 10
+        md_bg_color: 1,1,1,1
+        radius: [16]
+        MDFloatLayout:
+            size_hint_x: .8
+            spacing: 1
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+
+            MDLabel:
+                id: goods_name
+                text: ""
+                bold: True
+                font_size: "20sp"
+                halign: 'left'
+                pos_hint: {"top": 1.4, "right": 1}
+                color: (0,0,0,0)
+            MDLabel:
+                id: from_city
+                text: ""
+                bold: True
+                font_size: "20sp"
+                halign: 'left'
+                pos_hint: {"top": 1.3, "right": 1}
+                color: (0,0,0,0)
+            MDLabel:
+                id: to_city
+                text: ""
+                bold: True
+                font_size: "20sp"
+                halign: 'left'
+                pos_hint: {"top": 1.2, "right": 1}
+                color: (0,0,0,0)
+            MDLabel:
+                id: kms
+                text: ""
+                bold: True
+                font_size: "20sp"
+                halign: 'left'
+                pos_hint: {"top": 1.1, "right": 1}
+                color: (0,0,0,0)
+            MDLabel:
+                id: load_weight
+                text: ""
+                bold: True
+                font_size: "20sp"
+                halign: 'left'
+                pos_hint: {"top": 1, "right": 1}
+                color: (0,0,0,0)
+            MDLabel:
+                id: start_price
+                text: ""
+                bold: True
+                font_size: "20sp"
+                halign: 'left'
+                pos_hint: {"top": .9, "right": 1}
+                color: (0,0,0,0)
+            MDLabel:
+                id: status
+                text: ""
+                bold: True
+                font_size: "20sp"
+                halign: 'left'
+                pos_hint: {"top": .8, "right": 1}
+                color: (0,0,0,0)
+            MDLabel:
+                id: placed_by
+                text: ""
+                bold: True
+                font_size: "20sp"
+                halign: 'left'
+                pos_hint: {"top": .7, "right": 1}
+                color: (0,0,0,0)
+
+            MDLabel:
+                id: placed_bid
+                text: ""
+                bold: True
+                font_size: "20sp"
+                halign: 'left'
+                pos_hint: {"top": .6, "right": 1}
+                color: (0,0,0,0)
+
+
+    MDLabel:
+        id: current_goods_NA
+        text: "Currently No Goods available\nPlease click <Add Goods> \nto transport goods"
+        halign: 'center'
+        pos_hint: {"top": 1.1, "right": 1}
+        color: (120/255,120/255,120/255,1)
+
+    MDRectangleFlatButton:
+        text: "Refresh"
+        size_hint: .37, .075
+        text_color: (190/200,0,0,1)
+        pos_hint: {"top": .37, "right": .48}
+        on_release: app.login_firebase.refresh_dashboard()
+
+    MDRectangleFlatButton:
+        text: "End Bid"
+        size_hint: .37, .075
+        text_color: (190/200,0,0,1)
+        pos_hint: {"top": .37, "right": .9}
+        on_release: app.login_firebase.end()
+
+    MDRectangleFlatButton:
+        text: "Delete Bidding"
+        size_hint: .37, .075
+        text_color: (190/200,0,0,1)
+        pos_hint: {"top": .27, "right": .9}
+        on_release: app.login_firebase.delete()
+
+    MDRectangleFlatButton:
+        id: add_button
+        text: 'Add Goods'
+        text_style: "H6"
+        size_hint: .37, .075
+        text_color: (0,0,0,1)
+        md_bg_color: (1,1,1,1)
+        pos_hint: {"top": .27, "right": .48}
+        on_release: root.manager.current = "Add_goods"
+
+
+<Company_profile>:
+    MDToolbar:
+        pos_hint: {"top":1}
+        title: "Profile"
+        elevation:11
+
+    Nav_bar:
+        size_hint: .85, .1
+        pos_hint: {"center_x": .5, "center_y": .1}
+        elevation: 15
+        md_bg_color: 1,1,1,1
+        radius: [16]
+        MDGridLayout:
+            cols: 3
+            size_hint_x: .8
+            spacing: 20
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+
+            MDIconButton:
+                icon: 'home-outline'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release : app.login_firebase.refresh_dashboard()
+
+            MDIconButton:
+                icon: 'transfer'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release : app.login_firebase.history()
+
+            MDIconButton:
+                icon: 'account-outline'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release: app.login_firebase.profile()
+
+
+    MDLabel:
+        text: "Name:"
+        size_hint : .8, .1
+        pos_hint: {"top": .85 ,"right" : .9}
+        color: (0,0,0,1)
+
+    MDLabel:
+        id: username_display
+        size_hint : .8, .1
+        pos_hint: {"top": .80 ,"right" : .95}
+
+    MDLabel:
+        text: "Company Name:"
+        color: (0,0,0,1)
+        size_hint : .8, .1
+        pos_hint: {"top": .75 ,"right" : .9}
+
+
+    MDLabel:
+        id: company_display
+        size_hint : .8, .1
+        pos_hint: {"top": .70 ,"right" : .95}
+
+    MDLabel:
+        text: "Phone Number:"
+        color: (0,0,0,1)
+        size_hint : .8, .1
+        pos_hint: {"top": .55 ,"right" : .9}
+
+    MDLabel:
+        id: phone_display
+        size_hint : .8, .1
+        pos_hint: {"top": .50 ,"right" : .95}
+
+    MDLabel:
+        text: "Email:"
+        color: (0,0,0,1)
+        size_hint : .8, .1
+        pos_hint: {"top": .65 ,"right" : .9}
+
+    MDLabel:
+        id: email_display
+        size_hint : .8, .1
+        pos_hint: {"top": .60 ,"right" : .95}
+
+    MDRectangleFlatButton:
+        text: 'Help!!'
+        text_style: "H3"
+        size_hint: .4, .07
+        pos_hint: {"top": .35, "right": .7}
+        on_release:
+            root.manager.current = "Company_questions"
+
+    MDRectangleFlatButton:
+        text: 'Sign Out...!'
+        text_style: "H6"
+        size_hint: .4, .07
+        pos_hint: {"top": .25, "right": .7}
+        on_release:
+            root.manager.current = "Company_login_screen"
+
+
+<Add_goods>:
+    FloatLayout:
+        MDIconButton:
+            icon: "arrow-left"
+            text_color : (1,1,0,1)
+            pos_hint: {"top": .98, "right": .2}
+            on_release : root.manager.current = "Company_dashboard"
+        MDTextField:
+            id: Goods_name
+            hint_text:"Goods Name"
+            size_hint : .8, .1
+            pos_hint: {"top": .85 ,"right" : .9}
+            icon_right: "truck-trailer"
+            icon_right_color: app.theme_cls.primary_color
+        MDTextField:
+            id: From_city
+            hint_text:"From City"
+            size_hint : .38, .1
+            pos_hint: {"top": .75 ,"right" : .48}
+            icon_right: "city"
+            icon_right_color: app.theme_cls.primary_color
+        MDTextField:
+            id: To_city
+            hint_text:"To City"
+            size_hint : .38, .1
+            pos_hint: {"top": .75 ,"right" : .9}
+            icon_right: "city-variant"
+            icon_right_color: app.theme_cls.primary_color
+        MDTextField:
+            id: Tons
+            hint_text:"Weight In Tons"
+            size_hint : .8, .1
+            pos_hint: {"top": .55 ,"right" : .9}
+            icon_right: "weight"
+            icon_right_color: app.theme_cls.primary_color
+        MDTextField:
+            id: Total_kms
+            hint_text:"Total Kms"
+            size_hint : .8, .1
+            pos_hint: {"top": .65 ,"right" : .9}
+            icon_right: "map-marker-distance"
+            icon_right_color: app.theme_cls.primary_color
+        MDTextField:
+            id: start_price
+            hint_text:"Price"
+            size_hint : .8, .1
+            pos_hint: {"top": .45 ,"right" : .9}
+            icon_right: "currency-inr"
+            icon_right_color: app.theme_cls.primary_color
+
+        MDLabel:
+            id: add_message
+            color: (1,0,0,1)
+            size_hint: .8, .1
+            pos_hint: {"top": .3 ,"right" : 1.09}
+        MDRectangleFlatButton:
+            text: "Continue"
+            text_style: "H6"
+            size_hint: .8, .1
+            pos_hint: {"top": .2, "right": .9}
+            on_release:
+                app.login_firebase.post_goods(Goods_name.text, From_city.text, To_city.text, Total_kms.text, Tons.text, start_price.text)
+
+
+<Company_transaction_history>:
+    MDToolbar:
+        pos_hint: {"top":1}
+        title: "Transaction History"
+        elevation:11
+        #left_action_items:[["menu", lambda x: nav_drawer.set_state("open")]]
+
+
+    ScrollView:
+        pos_hint: {"top":.9}
+        MDList:
+            ThreeLineListItem:
+                id: 5
+            ThreeLineListItem:
+                id: 4
+            ThreeLineListItem:
+                id: 3
+            ThreeLineListItem:
+                id: 2
+            ThreeLineListItem:
+                id: 1
+
+
+    Nav_bar:
+        size_hint: .85, .1
+        pos_hint: {"center_x": .5, "center_y": .1}
+        elevation: 15
+        md_bg_color: 1,1,1,1
+        radius: [16]
+        MDGridLayout:
+            cols: 3
+            size_hint_x: .8
+            spacing: 20
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDIconButton:
+                icon: 'home-outline'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release : app.login_firebase.refresh_dashboard()
+
+            MDIconButton:
+                icon: 'transfer'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release : app.login_firebase.history()
+
+            MDIconButton:
+                icon: 'account-outline'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release: app.login_firebase.profile()
+
+<Company_questions>:
+    MDIconButton:
+        text : "BACK"
+        icon: "arrow-left"
+        text_color : (1,1,0,1)
+        pos_hint: {'center_x': .05, 'center_y': 0.1}
+        on_release : root.manager.current = "Company_profile"
+
+    MDToolbar:
+        pos_hint: {"top":1}
+        title: "Help"
+        elevation:11
+
+    MDLabel:
+        text: "1. What is the use of this app?"
+        pos_hint : {'center_x': 0.2,'center_y': 0.9}
+        text_style: "H2"
+        size_hint: .4, .4
+    MDLabel:
+        text: "Ans. This app helps you to post your goods available at your company which is ready for delivery. The registered drivers will see the post and come to you for picking up the goods."
+        pos_hint : {'center_x': 0.1,'center_y': 0.8}
+        text_style: "H2"
+        size_hint: .2, .1
+
+    MDLabel:
+        text: "2. How can I post an item?"
+        pos_hint : {'center_x': 0.2,'center_y': 0.7}
+        text_style: "H2"
+        size_hint: .4, .4
+    MDLabel:
+        text: "Ans. Use the Add items option to enter all your details about the goods."
+        pos_hint : {'center_x': 0.1,'center_y': 0.6}
+        text_style: "H2"
+        size_hint: .2, .1
+
+    MDLabel:
+        text: "3. How can I check my transaction history?"
+        pos_hint : {'center_x': 0.2,'center_y': 0.5}
+        text_style: "H2"
+        size_hint: .4, .4
+    MDLabel:
+        text: "Ans. Use the Center button on the navigation bar that will take you to your transaction history."
+        pos_hint : {'center_x': 0.1,'center_y': 0.4}
+        text_style: "H2"
+        size_hint: .2, .1
+
+    MDLabel:
+        text: "4. How can I check status of the goods posted?"
+        pos_hint : {'center_x': 0.2,'center_y': 0.3}
+        text_style: "H2"
+        size_hint: .4, .4
+    MDLabel:
+        text: "Ans. You can check the status of the your posted goods on the dashboard / main menu."
+        pos_hint : {'center_x': 0.1,'center_y': 0.2}
+        text_style: "H2"
+        size_hint: .2, .1
+
+#######################################################################
+###############################################################################3
+###########   Carrier code  ############################################
+##############################################################################
+############################################################################
+
+
+<Carrier_login_screen>:
+    MDLabel:
+        text: "Login with Moblie"
+        color: (99/255,99/255,99/255,1)
+        font_size: 18
+        bold: True
+        pos_hint: {"center_x": .6, "center_y": .8}
+
+    MDTextField:
+        id: number
+        hint_text: "Enter Number"
+        pos_hint: { "center_x": .5, "center_y": .6}
+        size_hint_x: .8
+        icon_right: "call"
+        icon_right_color: app.theme_cls.primary_color
+
+    MDRectangleFlatButton:
+        text: "Send!"
+        text_style: "H5"
+        size_hint: .8, .1
+        pos_hint: {"top": .32, "right": .9}
+        on_release:
+            app.login_otp.send_otp(number.text)
+
+    MDIconButton:
+        text : "BACK"
+        icon: "arrow-left"
+        text_color : (1,1,0,1)
+        pos_hint: {"top": .98, "right": .2}
+        on_release : root.manager.current = "Service_selection_screen"
+
+    MDLabel:
+        id: otp_login
+        color: (1,0,0,1)
+        size_hint: .8, .1
+        pos_hint: {"top": .45 ,"right" : 1.1}
+
+
+<Carrier_otp_verify>:
+    MDLabel:
+        id: real_otp
+        color: (1,1,1,0)
+        halign: 'center'
+
+    MDLabel:
+        id: message
+        pos_hint: {"center_x": .8, "center_y": .4}
+
+    MDLabel:
+        text: "Enter The OTP to Login"
+        color: (99/255,99/255,99/255,1)
+        font_size: 18
+        bold: True
+        pos_hint: {"center_x": .6, "center_y": .8}
+
+    MDTextField:
+        id: entered_otp
+        hint_text: "Enter OTP"
+        pos_hint: { "center_x": .5, "center_y": .6}
+        size_hint_x: .8
+        icon_right: "call"
+        icon_right_color: app.theme_cls.primary_color
+
+    MDRectangleFlatButton:
+        text: "Verify!"
+        text_style: "H5"
+        size_hint: .8, .1
+        pos_hint: {"top": .32, "right": .9}
+        on_release:
+            app.login_otp.verify(entered_otp.text, real_otp.text)
+
+    MDIconButton:
+        text : "BACK"
+        icon: "arrow-left"
+        text_color : (1,1,0,1)
+        pos_hint: {"top": .98, "right": .2}
+        on_release : root.manager.current = "Service_selection_screen"
+
+    MDFlatButton:
+        text: "Resend OTP"
+        text_color: (0,0,0,1)
+        text_style: "H6"
+        size_hint:.5, .04
+        pos_hint: {"top": .52, "right": .95}
+        on_release:
+            app.login_otp.verify(entered_otp.text, real_otp.text)
+
+
+############################################################################################################
+###################################################################################################################
+#################################    carrier Dashboard    ########################################################
+##################################################################################################################
+###############################################################################################################
+
+<Carrier_dashboard>
+    MDToolbar:
+        pos_hint: {"top":1}
+        title: "Dashboard"
+        elevation:11
+
+    Nav_bar:
+        size_hint: .91, .15
+        pos_hint: {"center_x": .5, "center_y": .79}
+        elevation: 10
+        md_bg_color: 1,1,1,1
+        radius: [16]
+        MDFloatLayout:
+            size_hint_x: .8
+            spacing: 1
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDLabel:
+                id: Requests_line1
+                text: "<No Requests Available>"
+                halign: 'center'
+                pos_hint: {"top": 1.25, "right": 1}
+                color: (120/255,120/255,120/255,1)
+
+            MDLabel:
+                id: Requests_id
+                text: "<No Requests Available>"
+                halign: 'center'
+                pos_hint: {"top": 1.02, "right": 1}
+                color: (120/255,120/255,120/255,1)
+
+            MDLabel:
+                id: value
+                text: ""
+                color: (120/255,120/255,120/255,0)
+
+            MDTextButton:
+                id: accept
+                text: 'Accept'
+                text_style: "H6"
+                text_color: (120/255, 120/255, 120/255, 0)
+                size_hint: .35, .2
+                pos_hint: {"top": .3, "right": .98}
+                on_release: app.login_otp.accept(value.text)
+
+            MDTextButton:
+                id: reject
+                text: 'Reject'
+                text_style: "H6"
+                text_color: (120/255, 120/255, 120/255, 0)
+                size_hint: .35, .2
+                pos_hint: {"top": .3, "right": .4}
+                on_release: app.login_otp.reject()
+
+
+    ScrollView:
+        pos_hint: {"top":.7}
+        MDList:
+            ThreeLineListItem:
+                id: 10
+                text : ""
+                secondary_text : ""
+                tertiary_text : ""
+                on_release : app.login_otp.bid('10')
+            ThreeLineListItem:
+                id: 9
+                text : ""
+                secondary_text : ""
+                tertiary_text : ""
+                on_release : app.login_otp.bid('9')
+            ThreeLineListItem:
+                id: 8
+                text : ""
+                secondary_text : ""
+                tertiary_text : ""
+                on_release : app.login_otp.bid('8')
+            ThreeLineListItem:
+                id: 7
+                text : ""
+                secondary_text : ""
+                tertiary_text : ""
+                on_release : app.login_otp.bid('7')
+            ThreeLineListItem:
+                id: 6
+                text : ""
+                secondary_text : ""
+                tertiary_text : ""
+                on_release : app.login_otp.bid('6')
+            ThreeLineListItem:
+                id: 5
+                text : ""
+                secondary_text : ""
+                tertiary_text : ""
+                on_release : app.login_otp.bid('5')
+            ThreeLineListItem:
+                id: 4
+                text : ""
+                secondary_text : ""
+                tertiary_text : ""
+                on_release : app.login_otp.bid('4')
+            ThreeLineListItem:
+                id: 3
+                text : ""
+                secondary_text : ""
+                tertiary_text : ""
+                on_release : app.login_otp.bid('3')
+            ThreeLineListItem:
+                id: 2
+                text : ""
+                secondary_text : ""
+                tertiary_text : ""
+                on_release : app.login_otp.bid('2')
+            ThreeLineListItem:
+                id: 1
+                text : ""
+                secondary_text : ""
+                tertiary_text : ""
+                on_release : app.login_otp.bid('1')
+
+
+    Nav_bar:
+        size_hint: .85, .1
+        pos_hint: {"center_x": .5, "center_y": .1}
+        elevation: 15
+        md_bg_color: 1,1,1,1
+        radius: [16]
+        MDGridLayout:
+            cols: 3
+            size_hint_x: .8
+            spacing: 20
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDIconButton:
+                icon: 'home-outline'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release : app.login_otp.carrier_dashboard()
+
+            MDIconButton:
+                icon: 'transfer'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release : root.manager.current = "Carrier_history"
+
+            MDIconButton:
+                icon: 'account-outline'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release: app.login_otp.profile()
+
+
+<Bidding>:
+    MDToolbar:
+        pos_hint: {"top":1}
+        title: "Place Bid"
+        elevation:11
+        left_action_items: [["arrow-left", lambda x: app.login_otp.carrier_dashboard()]]
+
+    MDLabel:
+        id: com_name
+        text: ""
+        size_hint : .8, .1
+        pos_hint: {"top": .85 ,"right" : 1}
+        color: (0,0,0,1)
+
+    MDLabel:
+        id: bid_name
+        text: ""
+        size_hint : .8, .1
+        pos_hint: {"top": .80 ,"right" : .9}
+        color: (0,0,0,1)
+
+    MDLabel:
+        id: b_from
+        text : ""
+        size_hint : .8, .1
+        pos_hint: {"top": .75 ,"right" : .9}
+
+    MDLabel:
+        id: b_to
+        text: ""
+        color: (0,0,0,1)
+        size_hint : .8, .1
+        pos_hint: {"top": .70 ,"right" : .9}
+
+    MDLabel:
+        id: b_tons
+        size_hint : .8, .1
+        pos_hint: {"top": .65 ,"right" : .9}
+
+    MDLabel:
+        id: start_price
+        size_hint : .8, .1
+        pos_hint: {"top": .60 ,"right" : .9}
+
+    MDLabel:
+        text: "Current Bid Price"
+        color: (0,0,0,1)
+        size_hint : .8, .1
+        pos_hint: {"top": .55 ,"right" : .9}
+
+    MDLabel:
+        id: cur_bid
+        size_hint : .8, .1
+        pos_hint: {"top": .50 ,"right" : 1}
+
+    MDLabel:
+        id: b_com_id
+        text: ""
+        color: (0,0,0,0)
+
+    MDTextField:
+        id: bid_price
+        hint_text:"Bid Amount"
+        size_hint : .8, .1
+        pos_hint: {"top": .40 ,"right" : .9}
+        icon_right: "currency-inr"
+        icon_right_color: app.theme_cls.primary_color
+
+    MDRectangleFlatButton:
+        text: 'Bid'
+        text_style: "H6"
+        size_hint: .4, .07
+        pos_hint: {"top": .20, "right": .7}
+        on_release: app.login_otp.place_bid(b_com_id.text, bid_price.text, bid_name.text, cur_bid.text)
+
+<Carrier_profile>:
+    MDRectangleFlatButton:
+        text: 'Help!!'
+        text_style: "H3"
+        size_hint: .4, .07
+        pos_hint: {"top": .35, "right": .7}
+        on_release:
+            root.manager.current = "Carrier_questions"
+
+    MDToolbar:
+        pos_hint: {"top":1}
+        title: "Profile"
+        elevation:11
+
+    Nav_bar:
+        size_hint: .85, .1
+        pos_hint: {"center_x": .5, "center_y": .1}
+        elevation: 15
+        md_bg_color: 1,1,1,1
+        radius: [16]
+        MDGridLayout:
+            cols: 3
+            size_hint_x: .8
+            spacing: 20
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDIconButton:
+                icon: 'home-outline'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release : app.login_otp.carrier_dashboard()
+
+            MDIconButton:
+                icon: 'transfer'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release : root.manager.current = "Carrier_history"
+            MDIconButton:
+                icon: 'account-outline'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release: app.login_otp.profile()
+
+    MDLabel:
+        text: "Name:"
+        size_hint : .8, .1
+        pos_hint: {"top": .85 ,"right" : .9}
+        color: (0,0,0,1)
+
+    MDLabel:
+        id: username_display
+        size_hint : .8, .1
+        pos_hint: {"top": .80 ,"right" : .95}
+
+    MDLabel:
+        text: "Transport Name:"
+        color: (0,0,0,1)
+        size_hint : .8, .1
+        pos_hint: {"top": .75 ,"right" : .9}
+
+    MDLabel:
+        id: transport_display
+        size_hint : .8, .1
+        pos_hint: {"top": .70 ,"right" : .95}
+
+    MDLabel:
+        text: "Phone Number:"
+        color: (0,0,0,1)
+        size_hint : .8, .1
+        pos_hint: {"top": .65 ,"right" : .9}
+
+    MDLabel:
+        id: phone_display
+        size_hint : .8, .1
+        pos_hint: {"top": .60 ,"right" : .95}
+
+    MDLabel:
+        text: "Truck Type:"
+        color: (0,0,0,1)
+        size_hint : .8, .1
+        pos_hint: {"top": .55 ,"right" : .9}
+
+    MDLabel:
+        id: truck_type_display
+        size_hint : .8, .1
+        pos_hint: {"top": .50 ,"right" : .95}
+
+    MDLabel:
+        text: "Truck Number:"
+        color: (0,0,0,1)
+        size_hint : .8, .1
+        pos_hint: {"top": .45 ,"right" : .9}
+
+    MDLabel:
+        id: truck_no_display
+        size_hint : .8, .1
+        pos_hint: {"top": .40 ,"right" : .95}
+
+    MDRectangleFlatButton:
+        text: 'Sign Out...!'
+        text_style: "H6"
+        size_hint: .4, .07
+        pos_hint: {"top": .25, "right": .7}
+        on_release:
+            root.manager.current = "Carrier_login_screen"
+
+<Carrier_history>:
+    MDToolbar:
+        pos_hint: {"top":1}
+        title: "Accepted"
+        elevation:11
+
+    ScrollView:
+        pos_hint: {"top":.9}
+        MDList:
+            ThreeLineListItem:
+                id: 5
+            ThreeLineListItem:
+                id: 4
+            ThreeLineListItem:
+                id: 3
+            ThreeLineListItem:
+                id: 2
+            ThreeLineListItem:
+                id: 1
+
+
+    Nav_bar:
+        size_hint: .85, .1
+        pos_hint: {"center_x": .5, "center_y": .1}
+        elevation: 15
+        md_bg_color: 1,1,1,1
+        radius: [16]
+        MDGridLayout:
+            cols: 3
+            size_hint_x: .8
+            spacing: 20
+            pos_hint: {"center_x": .5, "center_y": .5}
+
+            MDIconButton:
+                icon: 'home-outline'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release : app.login_otp.carrier_dashboard()
+
+            MDIconButton:
+                icon: 'transfer'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release : root.manager.current = "Carrier_history"
+
+            MDIconButton:
+                icon: 'account-outline'
+                ripple_scale: 0
+                user_font_size: "30sp"
+                theme_text_color: "Custom"
+                text_color: 86/255,55/255,173/255,1
+                on_release: app.login_otp.profile()
+
+<Carrier_details>:
+    FloatLayout:
+        MDTextField:
+            id: username
+            hint_text:"Enter your Name"
+            size_hint : .8, .1
+            pos_hint: {"top": .8 ,"right" : .9}
+            icon_right: "account"
+            icon_right_color: app.theme_cls.primary_color
+        MDTextField:
+            id: transport_name
+            hint_text:"Transport Name"
+            size_hint : .8, .1
+            pos_hint: {"top": .7 ,"right" : .9}
+            icon_right: "office-building"
+            icon_right_color: app.theme_cls.primary_color
+        MDTextField:
+            id: Truck_type
+            hint_text:"Type of Truck"
+            size_hint : .8, .1
+            pos_hint: {"top": .6 ,"right" : .9}
+            icon_right: "cellphone-basic"
+            icon_right_color: app.theme_cls.primary_color
+        MDTextField:
+            id: Truck_no
+            hint_text:"Truck Number"
+            size_hint : .8, .1
+            pos_hint: {"top": .5 ,"right" : .9}
+            icon_right: "cellphone-basic"
+            icon_right_color: app.theme_cls.primary_color
+        MDLabel:
+            id: details_message
+            color: (1,0,0,1)
+            size_hint: .8, .1
+            pos_hint: {"top": .3 ,"right" : 1.09}
+        MDRectangleFlatButton:
+            text: "Continue"
+            text_style: "H6"
+            size_hint: .8, .1
+            pos_hint: {"top": .2, "right": .9}
+            on_release: app.login_otp.carrier_post_details(username.text, transport_name.text, Truck_type.text, Truck_no.text)
+
+<Carrier_questions>:
+    MDIconButton:
+        text : "BACK"
+        icon: "arrow-left"
+        text_color : (1,1,0,1)
+        pos_hint: {'center_x': .05, 'center_y': 0.1}
+        on_release : root.manager.current = "Carrier_profile"
+
+    MDToolbar:
+        pos_hint: {"top":1}
+        title: "Help"
+        elevation:11
+
+    MDLabel:
+        text: "1. What is the use of this app?"
+        pos_hint : {'center_x': 0.2,'center_y': 0.9}
+        text_style: "H2"
+        size_hint: .4, .4
+    MDLabel:
+        text: "Ans. This app helps you to post your goods available at your company which is ready for delivery. The registered drivers will see the post and come to you for picking up the goods."
+        pos_hint : {'center_x': 0.1,'center_y': 0.8}
+        text_style: "H2"
+        size_hint: .2, .1
+
+    MDLabel:
+        text: "2. Where can I see jobs?"
+        pos_hint : {'center_x': 0.2,'center_y': 0.7}
+        text_style: "H2"
+        size_hint: .4, .4
+    MDLabel:
+        text: "Ans. You can see all available jobs in the dashboard and chose which is convenient for you."
+        pos_hint : {'center_x': 0.1,'center_y': 0.6}
+        text_style: "H2"
+        size_hint: .2, .1
+
+    MDLabel:
+        text: "3. How can I check my transaction history?"
+        pos_hint : {'center_x': 0.2,'center_y': 0.5}
+        text_style: "H2"
+        size_hint: .4, .4
+    MDLabel:
+        text: "Ans. Use the Center button on the navigation bar that will take you to your transaction history."
+        pos_hint : {'center_x': 0.1,'center_y': 0.4}
+        text_style: "H2"
+        size_hint: .2, .1
+
+    MDLabel:
+        text: "4. Where can I check my ratings?"
+        pos_hint : {'center_x': 0.2,'center_y': 0.3}
+        text_style: "H2"
+        size_hint: .4, .4
+    MDLabel:
+        text: "Ans. You can find your ratings in the profile section. You can access it by using last button on the navigation bar"
+        pos_hint : {'center_x': 0.1,'center_y': 0.2}
+        text_style: "H2"
+        size_hint: .2, .1
+
+########################################################################################################################
+<feedback>:
+    MDIconButton:
+        text : "BACK"
+        icon: "arrow-left"
+        text_color : (1,1,0,1)
+        pos_hint: {'center_x': .05, 'center_y': 0.1}
+        on_release : root.manager.current = "Company_dashboard"
+
+    MDToolbar:
+        pos_hint: {"top":1}
+        title: "Feedback to the driver"
+        elevation:11
+
+    MDTextField:
+        id: feedback
+        hint_text:"Enter your feedback here."
+        size_hint : .10, .2
+        pos_hint: {"top": .8 ,"right" : .9}
+########################################################################################################################
+ScreenManager:
+    id: screen_manager
+    Animi_screen:
+        name: 'Animi_screen'
+        id: Animi_screen
+
+    Service_selection_screen:
+        name: 'Service_selection_screen'
+        id: Service_selection_screen
+
+    Company_login_screen:
+        name: 'Company_login_screen'
+        id : Company_login_screen
+
+    Company_signup_screen:
+        name: 'Company_signup_screen'
+        id: Company_signup_screen
+
+    Company_dashboard:
+        name: 'Company_dashboard'
+        id: Company_dashboard
+
+    ResetPassword:
+        name: 'ResetPassword'
+        id: ResetPassword
+
+    Company_details:
+        name: 'Company_details'
+        id: Company_details
+
+    Company_profile:
+        name: 'Company_profile'
+        id: Company_profile
+
+    Carrier_login_screen:
+        name: 'Carrier_login_screen'
+        id: Carrier_login_screen
+
+    Carrier_otp_verify:
+        name: 'Carrier_otp_verify'
+        id: Carrier_otp_verify
+
+    Carrier_details:
+        name: 'Carrier_details'
+        id: Carrier_details
+
+    Carrier_dashboard:
+        name: 'Carrier_dashboard'
+        id: Carrier_dashboard
+
+    Bidding:
+        name: 'Bidding'
+        id: Bidding
+
+    Carrier_profile:
+        name: 'Carrier_profile'
+        id: Carrier_profile
+
+    Carrier_history:
+        name: 'Carrier_history'
+        id: Carrier_history
+
+    Add_goods:
+        name: 'Add_goods'
+        id: Add_goods
+
+    Company_transaction_history:
+        name: 'Company_transaction_history'
+        id: Company_transaction_history
+
+    Company_questions:
+        name: 'Company_questions'
+        id: Company_questions
+
+    Carrier_questions:
+        name: 'Carrier_questions'
+        id: Carrier_questions
+
+    feedback:
+        name: 'feedback'
+        id: feedback
